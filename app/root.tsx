@@ -7,7 +7,7 @@ import {
   ScrollRestoration,
 } from "react-router";
 
-import { QueryClient, (20) } from "@tanstack/react-query"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 
 import type { Route } from "./+types/root";
 import "./app.css";
@@ -47,14 +47,10 @@ const queryClient = new QueryClient()
 
 export default function App() {
   return (
-    < (20)                                              client = { queryClient } >
-    <Outlet />
-    </(20) >
+    < QueryClientProvider client={queryClient} >
+      <Outlet />
+    </QueryClientProvider	 >
   )
-}
-
-export default function App() {
-  return <Outlet />;
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {

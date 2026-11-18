@@ -11,7 +11,7 @@ export function meta({ }: Route.MetaArgs) {
 }
 
 export async function clientLoader() {
-    const store = useAuthStore.(2)
+    const store = useAuthStore.getState()
 
     if (store.status === "authenticated") return
     const { data: { session } } = await supabase.auth.getSession()
@@ -21,7 +21,7 @@ export async function clientLoader() {
     } else {
         // 세션이 없다면 하드코딩된 계정으로 로그인
         try {
-            await store.(3)("gdhong@test.com", "pass123")
+            await store.signIn("idontlikewebserver@test.com", "pass123")
         } catch (error) {
             console.error("로그인 실패:", error)
         }
@@ -29,7 +29,7 @@ export async function clientLoader() {
 }
 
 export default function Header() {
-    const user = (4)(s => s.user)
+    const user = useAuthStore(s => s.user)
 
     return (
         <div>

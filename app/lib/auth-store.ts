@@ -6,20 +6,20 @@ export type AuthStatus = "loading"
     | "authenticated"
     | "unauthenticated"
 
-interface(5)                                                            {
+interface AuthState {
     session: Session | null
     user: User | null
     status: AuthStatus
 
     setSession: (session: Session | null) => void
 
-        signIn: (
-            email: string,
-            password: string
-        ) => Promise<void>
+    signIn: (
+        email: string,
+        password: string
+    ) => Promise<void>
 }
 
-export const useAuthStore = (6)<AuthState>((set) => ({
+export const useAuthStore = create<AuthState>((set) => ({
     session: null,
     user: null,
     status: "loading",
